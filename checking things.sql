@@ -55,3 +55,17 @@ ORDER BY
 
 
 
+-- countries with profit with positive qaverage discount 
+SELECT 
+	country 
+	, avg(discount)
+	, sum(profit)
+FROM 
+	all_2509.team9_master 
+GROUP BY 
+	country 
+HAVING 
+	avg(discount) > 0
+	and sum(profit) > 0; 
+
+
