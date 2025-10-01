@@ -196,7 +196,7 @@ ORDER BY sub_category ASC;
 
 ---slide 9 
 
--- This code identifies the total profit and the average discount applied to an order for each country in the database.
+-- This code identifies the total profit and the average discount applied to an order for each country in the database
 SELECT 	
 	country AS "Country",
 	ROUND(SUM(profit), 0) AS "Total profit",
@@ -206,4 +206,11 @@ GROUP BY country
 ORDER BY
 	"Total profit" DESC,
 	"Average discount" DESC;
+
+-- This code identifies the average discount for items with positive and negative profit
+SELECT
+    ROUND(AVG(CASE WHEN profit > 0 THEN discount END), 2) AS "Profit Average discount",
+    ROUND(AVG(CASE WHEN profit < 0 THEN discount END), 2) AS "Loss Average discount"
+FROM all_2509.team9_master;
+
 
