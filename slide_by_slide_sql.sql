@@ -88,6 +88,9 @@ FROM all_2509.team9_master
 GROUP BY DATE_TRUNC('year', order_date::date)
 ORDER BY DATE_TRUNC('year', order_date::date);
 
+
+-- slide 4
+
 -- This code identifies the total profit for each country, listing the top 5
 SELECT 	
 	country AS "Country",
@@ -99,7 +102,7 @@ LIMIT 5;
 
 
 
----slide 4 
+---slide 5 
 
 -- This code shows the total profits for each segment
 SELECT
@@ -121,7 +124,7 @@ ORDER BY sub_category ASC;
 
 
 
----slide 5 
+---slide 6
 
 -- This code shows the top 15 products, on average profit
 SELECT
@@ -138,7 +141,7 @@ LIMIT 15;
 
 
 
----slide 6 
+---slide 7 
 
 -- This code shows the worst 15 products, on average profit
 SELECT
@@ -155,7 +158,7 @@ LIMIT 15;
 
 
 
----slide 7 
+---slide 8 
 
 --This code created a view which I use in the next query
 CREATE VIEW all_2509.subcat_quant_dis_group9 AS (
@@ -184,7 +187,7 @@ GROUP BY sub_category;
 
 
 
----slide 8 
+---slide 9 
 
 -- This code calculates the average discount per order per subcategory
 SELECT 
@@ -197,26 +200,11 @@ ORDER BY sub_category ASC;
 
 
 
----slide 9 
+---slide 10 
 
 -- This code identifies the total profit and the average discount applied to an order for each country in the database
-SELECT 	
-	country AS "Country",
-	ROUND(SUM(profit), 0) AS "Total profit",
-	ROUND(AVG(discount), 1) AS "Average discount"
-FROM all_2509.team9_master
-GROUP BY country
-ORDER BY
-	"Total profit" DESC,
-	"Average discount" DESC;
+-- I created a view with it to use in the next query
 
--- This code identifies the average discount for items with positive and negative profit
-SELECT
-    ROUND(AVG(CASE WHEN profit > 0 THEN discount END), 2) AS "Profit Average discount",
-    ROUND(AVG(CASE WHEN profit < 0 THEN discount END), 2) AS "Loss Average discount"
-FROM all_2509.team9_master;
-
--- This code creates a view used in the next query
 CREATE VIEW all_2509.group9_country_discount AS (
 SELECT
     country AS "Country",
