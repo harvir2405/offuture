@@ -102,7 +102,6 @@ LIMIT 5;
 ---slide 4 
 
 -- This code shows the total profits for each segment
--- DON'T NEED?
 SELECT
 	segment,
 	SUM(profit)
@@ -141,7 +140,7 @@ LIMIT 15;
 
 ---slide 6 
 
--- THis code shows the worst 15 products, on average profit
+-- This code shows the worst 15 products, on average profit
 SELECT
 	AVG(profit),
 	product_id,
@@ -169,6 +168,10 @@ GROUP BY
 	sub_category,
 	discount
 ORDER BY sub_category);
+
+GRANT ALL ON all_2509.subcat_quant_dis_group9 TO da14_hasi;
+GRANT ALL ON all_2509.subcat_quant_dis_group9 TO de14_daki;
+GRANT ALL ON all_2509.subcat_quant_dis_group9 TO da14_haku;
 
 -- This code creates a table to find the percentage of items sold which were discounted grouped by subcategory
 SELECT 
@@ -213,4 +216,24 @@ SELECT
     ROUND(AVG(CASE WHEN profit < 0 THEN discount END), 2) AS "Loss Average discount"
 FROM all_2509.team9_master;
 
+-- This code creates a view used in the next query
+CREATE VIEW all_2509.group9_country_discount AS (
+SELECT
+    country AS "Country",
+    ROUND(SUM(profit), 0) AS "Total profit",
+    ROUND(AVG(discount), 1) AS "Average discount"
+FROM all_2509.team9_master
+GROUP BY country
+ORDER BY
+    "Total profit" DESC,
+    "Average discount" DESC
+);
 
+GRANT ALL ON all_2509.group9_country_discount TO da14_hasi;
+GRANT ALL ON all_2509.group9_country_discount TO de14_daki;
+GRANT ALL ON all_2509.group9_country_discount TO da14_haku;
+
+-- This code lists all countries with negative profit
+SELECT COUNT("Country") AS "Countries making loss"
+FROM all_2509.group9_country_discount
+WHERE "Total profit" < 0;
